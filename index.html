@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Talent Challenge 2026 | NexTalent Consulting</title>
+<style>
+  :root {
+    --navy:      #0B1F3A;
+    --blue:      #174EA6;
+    --blue-mid:  #2F80ED;
+    --white:     #FFFFFF;
+    --bg-light:  #F5F7FA;
+    --bg-section:#EEF2F8;
+    --text-dark: #1A202C;
+    --text-gray: #4A5568;
+    --text-light:#718096;
+    --border:    #D1DCF0;
+    --radius:    10px;
+    --radius-sm: 6px;
+    --shadow-sm: 0 1px 4px rgba(11,31,58,0.08);
+    --shadow:    0 4px 16px rgba(11,31,58,0.12);
+    --shadow-md: 0 8px 28px rgba(11,31,58,0.14);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.65;
+    overflow-x: hidden;
+    font-size: 15px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    background: var(--navy);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-inner {
+    max-width: 1160px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px; height: 64px;
+  }
+  .nav-brand { text-decoration: none; display: flex; flex-direction: column; line-height: 1.2; }
+  .nav-brand-name {
+    font-size: 1.05rem; font-weight: 700; color: var(--white); letter-spacing: 0.01em;
+  }
+  .nav-brand-sub {
+    font-size: 0.65rem; color: rgba(255,255,255,0.45); letter-spacing: 0.06em;
+    text-transform: uppercase; font-weight: 400;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 0.875rem; font-weight: 500; transition: color 0.18s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--blue-mid) !important; color: var(--white) !important;
+    padding: 8px 20px; border-radius: var(--radius-sm);
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover { background: #1a6fd4 !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: none; padding: 4px; }
+  .hamburger span { width: 22px; height: 2px; background: rgba(255,255,255,0.7); border-radius: 2px; display: block; }
+
+  /* ── HERO ── */
+  #inicio {
+    background: var(--navy);
+    padding-top: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-stripe {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--blue-mid) 60%, #5BA4F5 100%);
+  }
+  .hero-content {
+    max-width: 1160px; margin: 0 auto;
+    padding: 72px 28px 80px;
+    display: grid; grid-template-columns: 1fr 280px; gap: 56px; align-items: center;
+  }
+  .hero-label {
+    display: inline-block;
+    background: rgba(47,128,237,0.18); border: 1px solid rgba(47,128,237,0.4);
+    color: #7EC8F7; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .hero-title {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 800; line-height: 1.12; color: var(--white);
+    margin-bottom: 10px; letter-spacing: -0.01em;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem; color: rgba(255,255,255,0.55); margin-bottom: 6px;
+    font-weight: 400;
+  }
+  .hero-body {
+    font-size: 0.95rem; color: rgba(255,255,255,0.45); margin-bottom: 36px;
+    max-width: 520px; line-height: 1.7;
+  }
+  .hero-chips {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;
+  }
+  .hero-chip {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.7); font-size: 0.78rem; font-weight: 500;
+    padding: 5px 12px; border-radius: 4px;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--blue-mid); color: var(--white);
+    font-weight: 700; font-size: 0.95rem;
+    padding: 13px 28px; border-radius: var(--radius-sm);
+    text-decoration: none; transition: background 0.18s, transform 0.15s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: #1a6fd4; transform: translateY(-1px); }
+
+  /* Hero side panel */
+  .hero-panel {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+  }
+  .panel-stat { text-align: center; padding: 16px 0; }
+  .panel-stat + .panel-stat { border-top: 1px solid rgba(255,255,255,0.08); }
+  .panel-number {
+    font-size: 2.8rem; font-weight: 800; color: var(--white); line-height: 1;
+    display: block; margin-bottom: 4px;
+  }
+  .panel-number span { font-size: 1rem; font-weight: 500; color: var(--blue-mid); }
+  .panel-label { font-size: 0.78rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* ── GENERIC SECTION ── */
+  section { padding: 80px 28px; }
+  .container { max-width: 1160px; margin: 0 auto; }
+  .eyebrow {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue-mid); margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800; color: var(--text-dark); line-height: 1.2;
+    margin-bottom: 16px; letter-spacing: -0.01em;
+  }
+  .section-lead { font-size: 0.95rem; color: var(--text-gray); max-width: 580px; }
+
+  /* ── ABOUT ── */
+  #sobre { background: var(--white); border-bottom: 1px solid var(--border); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-top: 12px; }
+  .about-text p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.8; margin-bottom: 16px; }
+  .about-pillars { display: flex; flex-direction: column; gap: 16px; }
+  .pillar {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 18px 20px; background: var(--bg-light);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    border-left: 3px solid var(--blue-mid);
+  }
+  .pillar-icon {
+    width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0;
+    background: var(--blue); display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 800; color: var(--white); letter-spacing: 0;
+  }
+  .pillar strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--text-dark); margin-bottom: 2px; }
+  .pillar span { font-size: 0.8rem; color: var(--text-light); }
+
+  /* ── PROCESO ── */
+  #proceso { background: var(--bg-section); }
+  .steps-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px;
+  }
+  .step {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 20px;
+    position: relative;
+  }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--navy); color: var(--white);
+    font-size: 0.85rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .step h4 { font-size: 0.9rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+  .step p  { font-size: 0.82rem; color: var(--text-gray); line-height: 1.6; }
+
+  /* ── VACANTES ── */
+  #vacantes { background: var(--bg-light); }
+  .vacantes-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 20px; margin-top: 40px;
+  }
+  .vacante-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: box-shadow 0.22s, transform 0.22s;
+    border-top: 3px solid var(--blue);
+  }
+  .vacante-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+  .card-inner { padding: 28px; display: flex; flex-direction: column; flex: 1; }
+  .card-sector {
+    display: inline-block;
+    background: #EBF3FD; border: 1px solid #C3D9F7;
+    color: var(--blue); font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 3px; margin-bottom: 12px;
+  }
+  .card-title {
+    font-size: 1.1rem; font-weight: 800; color: var(--text-dark);
+    margin-bottom: 12px; line-height: 1.3;
+  }
+  .card-desc { font-size: 0.875rem; color: var(--text-gray); margin-bottom: 18px; line-height: 1.7; }
+  .card-section-label {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--blue-mid);
+    margin-bottom: 8px; margin-top: 14px;
+  }
+  .card-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .card-list li {
+    font-size: 0.845rem; color: var(--text-gray); padding-left: 14px; position: relative;
+  }
+  .card-list li::before { content: '—'; position: absolute; left: 0; color: var(--blue-mid); font-size: 0.7rem; top: 2px; }
+  .card-reqs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .req-tag {
+    background: var(--bg-section); border: 1px solid var(--border);
+    color: var(--text-gray); font-size: 0.75rem; font-weight: 500;
+    padding: 3px 10px; border-radius: 4px;
+  }
+  .card-spacer { flex: 1; min-height: 20px; }
+  .btn-card {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 20px; background: var(--navy);
+    color: var(--white); font-weight: 600; font-size: 0.875rem;
+    padding: 11px 22px; border-radius: var(--radius-sm);
+    text-decoration: none; align-self: flex-start;
+    transition: background 0.18s;
+  }
+  .btn-card:hover { background: var(--blue); }
+  .vacante-card.full-width { grid-column: 1 / -1; }
+  .vacante-card.full-width .card-two-col {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+
+  /* ── DOCS ── */
+  #requisitos { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .docs-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; margin-top: 36px;
+  }
+  .doc-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 20px; background: var(--bg-light);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    transition: border-color 0.18s;
+  }
+  .doc-item:hover { border-color: var(--blue-mid); }
+  .doc-icon {
+    width: 38px; height: 38px; border-radius: 7px; flex-shrink: 0;
+    background: var(--navy); display: flex; align-items: center;
+    justify-content: center; font-size: 0.75rem;
+    font-weight: 800; color: var(--white); letter-spacing: 0;
+  }
+  .doc-info strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
+  .doc-info span { font-size: 0.8rem; color: var(--text-light); }
+
+  /* ── CTA ── */
+  #postulacion { background: var(--navy); }
+  .cta-wrap { max-width: 640px; margin: 0 auto; text-align: center; }
+  .cta-wrap .eyebrow { color: #7EC8F7; }
+  .cta-wrap .section-title { color: var(--white); margin-bottom: 12px; }
+  .cta-wrap .cta-body { color: rgba(255,255,255,0.55); font-size: 0.95rem; margin-bottom: 28px; }
+  .deadline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(47,128,237,0.14); border: 1px solid rgba(47,128,237,0.35);
+    color: #7EC8F7; font-size: 0.8rem; font-weight: 600;
+    padding: 6px 16px; border-radius: 4px; margin-bottom: 28px;
+  }
+  .deadline-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue-mid); }
+  .emails-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 36px; }
+  .email-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.8); font-size: 0.85rem; font-weight: 500;
+    padding: 8px 16px; border-radius: var(--radius-sm); text-decoration: none;
+    transition: background 0.18s;
+  }
+  .email-chip:hover { background: rgba(255,255,255,0.12); }
+  .email-icon {
+    width: 18px; height: 18px; opacity: 0.5; flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060F1E; border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 28px; text-align: center;
+  }
+  .footer-brand { font-size: 0.9rem; font-weight: 700; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+  .footer-sub { font-size: 0.75rem; color: rgba(255,255,255,0.28); letter-spacing: 0.04em; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .hero-content { grid-template-columns: 1fr; }
+    .hero-panel { display: flex; gap: 0; }
+    .panel-stat { flex: 1; }
+    .panel-stat + .panel-stat { border-top: none; border-left: 1px solid rgba(255,255,255,0.08); }
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .steps-row { grid-template-columns: repeat(2, 1fr); }
+    .vacantes-grid { grid-template-columns: 1fr; }
+    .vacante-card.full-width .card-two-col { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    .steps-row { grid-template-columns: 1fr; }
+    .hero-panel { flex-direction: column; }
+    .panel-stat + .panel-stat { border-left: none; border-top: 1px solid rgba(255,255,255,0.08); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#inicio" class="nav-brand">
+      <span class="nav-brand-name">NexTalent Consulting</span>
+      <span class="nav-brand-sub">Technology Recruitment &amp; Executive Search</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#vacantes">Vacantes</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#postulacion" class="nav-cta">Postulación</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-content container">
+    <div>
+      <span class="hero-label">Proceso de Selección Activo</span>
+      <h1 class="hero-title">Data Talent Challenge 2026</h1>
+      <p class="hero-subtitle">Proceso de selección para perfiles junior de analítica de datos.</p>
+      <p class="hero-body">Postula a una de las vacantes disponibles y demuestra tus habilidades en Excel, Power BI, SQL, Python y comunicación ejecutiva en contextos reales de negocio.</p>
+      <div class="hero-chips">
+        <span class="hero-chip">Data Analyst</span>
+        <span class="hero-chip">BI Analyst</span>
+        <span class="hero-chip">SQL Analyst</span>
+        <span class="hero-chip">Python Analyst</span>
+        <span class="hero-chip">Fecha límite: 30 jun. 2026</span>
+      </div>
+      <a href="#vacantes" class="btn-primary">
+        Ver vacantes disponibles
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-panel">
+      <div class="panel-stat">
+        <span class="panel-number">5 <span>vacantes</span></span>
+        <span class="panel-label">Oportunidades activas</span>
+      </div>
+      <div class="panel-stat">
+        <span class="panel-number" style="font-size:1.7rem;">30 jun</span>
+        <span class="panel-label">Fecha límite</span>
+      </div>
+      <div class="panel-stat">
+        <span class="panel-number" style="font-size:1.7rem;">5</span>
+        <span class="panel-label">Sectores de industria</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stripe"></div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <p class="eyebrow">Sobre la convocatoria</p>
+        <h2 class="section-title">NexTalent Consulting</h2>
+        <div class="about-text">
+          <p>NexTalent Consulting es una firma especializada en atracción y selección de talento para posiciones relacionadas con Business Intelligence, Data Analytics, Data Science e Inteligencia Artificial.</p>
+          <p>Actualmente desarrollamos un proceso de selección para empresas de los sectores retail, servicios financieros, logística, planeación comercial y marketing. Buscamos profesionales con alto potencial para transformar datos en decisiones de negocio.</p>
+        </div>
+      </div>
+      <div class="about-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">BI</div>
+          <div>
+            <strong>Business Intelligence</strong>
+            <span>Posiciones orientadas a visualización y reporting ejecutivo.</span>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">DA</div>
+          <div>
+            <strong>Data Analytics</strong>
+            <span>Análisis comercial, operativo y estratégico basado en datos.</span>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">DS</div>
+          <div>
+            <strong>Data Science &amp; AI</strong>
+            <span>Modelos predictivos y técnicas de análisis estadístico avanzado.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="container">
+    <p class="eyebrow">Cómo aplicar</p>
+    <h2 class="section-title">Proceso de aplicación</h2>
+    <p class="section-lead">Cuatro pasos sencillos para enviar tu candidatura antes de la fecha límite.</p>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Revisa las vacantes</h4>
+        <p>Explora las cinco oportunidades disponibles y sus requisitos.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Selecciona tu vacante</h4>
+        <p>Identifica la posición que mejor se alinee con tu perfil y experiencia.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Prepara tu documentación</h4>
+        <p>CV actualizado, enlace a LinkedIn y portafolio de proyectos.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Envía tu candidatura</h4>
+        <p>Haz clic en "Aplicar ahora" antes del 30 de junio de 2026.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VACANTES -->
+<section id="vacantes">
+  <div class="container">
+    <p class="eyebrow">Oportunidades disponibles</p>
+    <h2 class="section-title">Oportunidades laborales activas</h2>
+    <p class="section-lead">Selecciona la vacante que mejor se alinee con tu perfil, experiencia y portafolio de proyectos.</p>
+
+    <div class="vacantes-grid">
+
+      <!-- V1 -->
+      <div class="vacante-card">
+        <div class="card-inner">
+          <span class="card-sector">Retail y Consumo Masivo</span>
+          <h3 class="card-title">Analista de Datos Comerciales</h3>
+          <p class="card-desc">Nuestro cliente, una empresa del sector retail y consumo masivo, busca incorporar un Analista de Datos Comerciales para apoyar la toma de decisiones mediante el análisis de ventas, comportamiento de productos y desempeño de sucursales.</p>
+
+          <p class="card-section-label">Responsabilidades</p>
+          <ul class="card-list">
+            <li>Consolidar y analizar información comercial proveniente de múltiples fuentes.</li>
+            <li>Construir reportes automatizados para el seguimiento de ventas.</li>
+            <li>Monitorear indicadores de desempeño por categoría, producto y sucursal.</li>
+            <li>Identificar oportunidades de mejora mediante análisis de datos.</li>
+          </ul>
+
+          <p class="card-section-label">Requisitos</p>
+          <div class="card-reqs">
+            <span class="req-tag">Excel Avanzado</span>
+            <span class="req-tag">Power Query</span>
+            <span class="req-tag">Tablas Dinámicas</span>
+            <span class="req-tag">Dashboards Ejecutivos</span>
+          </div>
+
+          <p class="card-section-label">Se valorará</p>
+          <ul class="card-list">
+            <li>Automatización de reportes.</li>
+            <li>Análisis de ventas y rentabilidad.</li>
+            <li>Construcción de dashboards para toma de decisiones.</li>
+          </ul>
+
+          <div class="card-spacer"></div>
+          <a class="btn-card" href="mailto:info@cienciadedatosec.com,carlosalbertorivadeneiraposso@hotmail.com?subject=Postulación - Analista de Datos Comerciales&body=Estimado equipo NexTalent Consulting,%0D%0A%0D%0AMi nombre es [Tu nombre] y me dirijo a ustedes para postular a la vacante de Analista de Datos Comerciales.%0D%0A%0D%0AAdjunto a este correo:%0D%0A• Hoja de vida actualizada%0D%0A• Enlace a mi perfil de LinkedIn%0D%0A• Portafolio de proyectos%0D%0A%0D%0AQuedo atento/a a su comunicación.%0D%0A%0D%0ASaludos cordiales,">
+            Aplicar ahora
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- V2 -->
+      <div class="vacante-card">
+        <div class="card-inner">
+          <span class="card-sector">Servicios Financieros</span>
+          <h3 class="card-title">Analista Business Intelligence</h3>
+          <p class="card-desc">Nuestro cliente, una institución del sector financiero, requiere un Analista Business Intelligence para diseñar y mantener dashboards ejecutivos que permitan monitorear indicadores estratégicos y operativos de la organización.</p>
+
+          <p class="card-section-label">Responsabilidades</p>
+          <ul class="card-list">
+            <li>Desarrollar dashboards interactivos en Power BI.</li>
+            <li>Diseñar modelos de datos para análisis corporativo.</li>
+            <li>Construir indicadores y métricas para distintas áreas del negocio.</li>
+            <li>Generar reportes para comités ejecutivos.</li>
+          </ul>
+
+          <p class="card-section-label">Requisitos</p>
+          <div class="card-reqs">
+            <span class="req-tag">Power BI</span>
+            <span class="req-tag">Power Query</span>
+            <span class="req-tag">Modelado de Datos</span>
+            <span class="req-tag">DAX</span>
+            <span class="req-tag">Visualización Ejecutiva</span>
+          </div>
+
+          <p class="card-section-label">Se valorará</p>
+          <ul class="card-list">
+            <li>Diseño de KPIs.</li>
+            <li>Análisis de información financiera.</li>
+            <li>Visualización para niveles gerenciales.</li>
+          </ul>
+
+          <div class="card-spacer"></div>
+          <a class="btn-card" href="mailto:info@cienciadedatosec.com,carlosalbertorivadeneiraposso@hotmail.com?subject=Postulación - Analista Business Intelligence&body=Estimado equipo NexTalent Consulting,%0D%0A%0D%0AMi nombre es [Tu nombre] y me dirijo a ustedes para postular a la vacante de Analista Business Intelligence.%0D%0A%0D%0AAdjunto a este correo:%0D%0A• Hoja de vida actualizada%0D%0A• Enlace a mi perfil de LinkedIn%0D%0A• Portafolio de proyectos%0D%0A%0D%0AQuedo atento/a a su comunicación.%0D%0A%0D%0ASaludos cordiales,">
+            Aplicar ahora
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- V3 -->
+      <div class="vacante-card">
+        <div class="card-inner">
+          <span class="card-sector">Logística y Distribución</span>
+          <h3 class="card-title">Analista de Bases de Datos y Reporting</h3>
+          <p class="card-desc">Nuestro cliente, una empresa líder del sector logístico, busca un Analista de Bases de Datos y Reporting para optimizar la generación de reportes operativos y apoyar la toma de decisiones basada en información confiable y oportuna.</p>
+
+          <p class="card-section-label">Responsabilidades</p>
+          <ul class="card-list">
+            <li>Diseñar consultas SQL para análisis operativo.</li>
+            <li>Integrar información de diferentes áreas del negocio.</li>
+            <li>Automatizar reportes mediante vistas y procedimientos almacenados.</li>
+            <li>Participar en iniciativas de mejora continua basadas en datos.</li>
+          </ul>
+
+          <p class="card-section-label">Requisitos</p>
+          <div class="card-reqs">
+            <span class="req-tag">SQL Server</span>
+            <span class="req-tag">Consultas Multitabla</span>
+            <span class="req-tag">Joins y Subconsultas</span>
+            <span class="req-tag">Modelado Dimensional</span>
+            <span class="req-tag">Optimización</span>
+          </div>
+
+          <p class="card-section-label">Se valorará</p>
+          <ul class="card-list">
+            <li>Gestión de inventarios.</li>
+            <li>Logística y cadena de suministro.</li>
+            <li>Automatización de reportes operativos.</li>
+          </ul>
+
+          <div class="card-spacer"></div>
+          <a class="btn-card" href="mailto:info@cienciadedatosec.com,carlosalbertorivadeneiraposso@hotmail.com?subject=Postulación - Analista de Bases de Datos y Reporting&body=Estimado equipo NexTalent Consulting,%0D%0A%0D%0AMi nombre es [Tu nombre] y me dirijo a ustedes para postular a la vacante de Analista de Bases de Datos y Reporting.%0D%0A%0D%0AAdjunto a este correo:%0D%0A• Hoja de vida actualizada%0D%0A• Enlace a mi perfil de LinkedIn%0D%0A• Portafolio de proyectos%0D%0A%0D%0AQuedo atento/a a su comunicación.%0D%0A%0D%0ASaludos cordiales,">
+            Aplicar ahora
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- V4 -->
+      <div class="vacante-card">
+        <div class="card-inner">
+          <span class="card-sector">Comercial y Planeación</span>
+          <h3 class="card-title">Analista de Datos y Pronósticos</h3>
+          <p class="card-desc">Nuestro cliente, una empresa nacional en expansión, busca incorporar un Analista de Datos y Pronósticos para apoyar procesos de planificación comercial y proyección de demanda mediante técnicas de análisis predictivo.</p>
+
+          <p class="card-section-label">Responsabilidades</p>
+          <ul class="card-list">
+            <li>Analizar tendencias históricas de ventas.</li>
+            <li>Construir modelos de predicción.</li>
+            <li>Elaborar reportes estadísticos para planificación comercial.</li>
+            <li>Identificar patrones de comportamiento y oportunidades de negocio.</li>
+          </ul>
+
+          <p class="card-section-label">Requisitos</p>
+          <div class="card-reqs">
+            <span class="req-tag">Python</span>
+            <span class="req-tag">Pandas</span>
+            <span class="req-tag">Estadística Descriptiva</span>
+            <span class="req-tag">Visualización de Datos</span>
+            <span class="req-tag">Modelos Predictivos</span>
+          </div>
+
+          <p class="card-section-label">Se valorará</p>
+          <ul class="card-list">
+            <li>Forecast de ventas.</li>
+            <li>Modelos de regresión.</li>
+            <li>Análisis estadístico aplicado al negocio.</li>
+          </ul>
+
+          <div class="card-spacer"></div>
+          <a class="btn-card" href="mailto:info@cienciadedatosec.com,carlosalbertorivadeneiraposso@hotmail.com?subject=Postulación - Analista de Datos y Pronósticos&body=Estimado equipo NexTalent Consulting,%0D%0A%0D%0AMi nombre es [Tu nombre] y me dirijo a ustedes para postular a la vacante de Analista de Datos y Pronósticos.%0D%0A%0D%0AAdjunto a este correo:%0D%0A• Hoja de vida actualizada%0D%0A• Enlace a mi perfil de LinkedIn%0D%0A• Portafolio de proyectos%0D%0A%0D%0AQuedo atento/a a su comunicación.%0D%0A%0D%0ASaludos cordiales,">
+            Aplicar ahora
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- V5 full width -->
+      <div class="vacante-card full-width">
+        <div class="card-inner">
+          <span class="card-sector">Marketing y Servicios</span>
+          <h3 class="card-title">Analista de Datos y Experiencia del Cliente</h3>
+          <div class="card-two-col">
+            <div>
+              <p class="card-desc">Nuestro cliente, una empresa orientada al servicio y experiencia del cliente, busca un Analista de Datos capaz de transformar información compleja en presentaciones ejecutivas y recomendaciones estratégicas para la dirección.</p>
+              <p class="card-section-label">Responsabilidades</p>
+              <ul class="card-list">
+                <li>Analizar información de clientes, campañas y canales de atención.</li>
+                <li>Construir dashboards orientados a la toma de decisiones.</li>
+                <li>Comunicar hallazgos mediante presentaciones ejecutivas.</li>
+                <li>Diseñar visualizaciones alineadas a buenas prácticas de storytelling.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="card-section-label">Requisitos</p>
+              <div class="card-reqs">
+                <span class="req-tag">Excel o Power BI</span>
+                <span class="req-tag">Visualización de Datos</span>
+                <span class="req-tag">Data Storytelling</span>
+                <span class="req-tag">Comunicación Efectiva</span>
+                <span class="req-tag">Pensamiento Analítico</span>
+              </div>
+              <p class="card-section-label">Se valorará</p>
+              <ul class="card-list">
+                <li>Diseño de dashboards ejecutivos.</li>
+                <li>Análisis de indicadores de experiencia del cliente.</li>
+                <li>Capacidad para comunicar insights a audiencias no técnicas.</li>
+              </ul>
+            </div>
+          </div>
+          <a class="btn-card" style="margin-top:24px;" href="mailto:info@cienciadedatosec.com,carlosalbertorivadeneiraposso@hotmail.com?subject=Postulación - Analista de Datos y Experiencia del Cliente&body=Estimado equipo NexTalent Consulting,%0D%0A%0D%0AMi nombre es [Tu nombre] y me dirijo a ustedes para postular a la vacante de Analista de Datos y Experiencia del Cliente.%0D%0A%0D%0AAdjunto a este correo:%0D%0A• Hoja de vida actualizada%0D%0A• Enlace a mi perfil de LinkedIn%0D%0A• Portafolio de proyectos%0D%0A%0D%0AQuedo atento/a a su comunicación.%0D%0A%0D%0ASaludos cordiales,">
+            Aplicar ahora
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DOCS -->
+<section id="requisitos">
+  <div class="container">
+    <p class="eyebrow">Documentación requerida</p>
+    <h2 class="section-title">Documentación requerida</h2>
+    <p class="section-lead">Para aplicar, incluye los siguientes documentos en tu correo de postulación.</p>
+    <div class="docs-grid">
+      <div class="doc-item">
+        <div class="doc-icon">CV</div>
+        <div class="doc-info">
+          <strong>Hoja de Vida</strong>
+          <span>CV actualizado en formato PDF o Word.</span>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon">LI</div>
+        <div class="doc-info">
+          <strong>Perfil de LinkedIn</strong>
+          <span>Enlace a tu perfil profesional actualizado.</span>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon">PF</div>
+        <div class="doc-info">
+          <strong>Portafolio de Proyectos</strong>
+          <span>Enlace o archivo con tus proyectos de datos.</span>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon">AS</div>
+        <div class="doc-info">
+          <strong>Asunto del Correo</strong>
+          <span>Indica claramente la vacante a la que aplicas.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="postulacion">
+  <div class="container">
+    <div class="cta-wrap">
+      <p class="eyebrow">Inicia tu proceso</p>
+      <h2 class="section-title">Inicia tu proceso de aplicación</h2>
+      <p class="cta-body">Envía tu documentación antes del <strong style="color:rgba(255,255,255,0.85);">30 de junio de 2026</strong> a los siguientes correos para participar en el Data Talent Challenge 2026.</p>
+      <div class="deadline">
+        <span class="deadline-dot"></span>
+        Fecha límite de postulación: 30 de junio de 2026
+      </div>
+      <div class="emails-row">
+        <a href="mailto:info@cienciadedatosec.com" class="email-chip">
+          <svg class="email-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+          info@cienciadedatosec.com
+        </a>
+        <a href="mailto:carlosalbertorivadeneiraposso@hotmail.com" class="email-chip">
+          <svg class="email-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+          carlosalbertorivadeneiraposso@hotmail.com
+        </a>
+      </div>
+      <a class="btn-primary" href="mailto:info@cienciadedatosec.com,carlosalbertorivadeneiraposso@hotmail.com?subject=Postulación - [Nombre de la vacante]&body=Estimado equipo NexTalent Consulting,%0D%0A%0D%0AMi nombre es [Tu nombre] y me dirijo a ustedes para postular a la vacante de [Nombre de la vacante].%0D%0A%0D%0AAdjunto a este correo:%0D%0A• Hoja de vida actualizada%0D%0A• Enlace a mi perfil de LinkedIn%0D%0A• Portafolio de proyectos%0D%0A%0D%0AQuedo atento/a a su comunicación.%0D%0A%0D%0ASaludos cordiales,">
+        Enviar candidatura
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-brand">NexTalent Consulting</p>
+  <p class="footer-sub">Talent Acquisition &nbsp;|&nbsp; Executive Search &nbsp;|&nbsp; Technology Recruitment &nbsp;·&nbsp; Quito · Ecuador</p>
+</footer>
+
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  // Scroll-reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+
+  document.querySelectorAll('.vacante-card, .doc-item, .step, .pillar').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
